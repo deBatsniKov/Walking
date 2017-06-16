@@ -30,7 +30,7 @@ public class Walking extends Application {
         scene.setOnKeyReleased(e -> {
             new KeyInput(handler).keyReleased(e);
         });
-        scene.setOnMouseClicked(e ->{
+        scene.setOnMousePressed(e ->{
             new KeyInput(handler).mousClick(e,e.getSceneX(),e.getSceneY());
         });
         
@@ -38,7 +38,7 @@ public class Walking extends Application {
         
         /////////////////////////////////////////////////////////
         //Test object, blauwe box, OBJECTEN OM TE TESTEN HIER ZETTEN
-        handler.addObject(new Box(100,100, ID.Player, handler));
+        handler.addObject(new Player(100,100, ID.Player, handler));
         /////////////////////////////////////////////////////////
         
         //Main javaXF functies om het venster te maken
@@ -61,8 +61,8 @@ public class Walking extends Application {
         AnimationTimer timer = new AnimationTimer(){
             @Override
             public void handle(long now) {
-                time += 0.17;
-                if(time >=0.5){
+                time += 0.170;
+                if(time >=0.50){
                     update();
                     render();
                     time = 0;
@@ -86,7 +86,6 @@ public class Walking extends Application {
         g.fillRect(0, 0, WIDTH, HEIGHT);
 
         handler.render(g);
-        
     }
     
     public static void main(String[] args) {

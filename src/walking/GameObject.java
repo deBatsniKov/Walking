@@ -6,7 +6,7 @@ import javafx.scene.shape.Rectangle;
 public abstract class GameObject {
 
     protected int x, y;
-    protected float velX = 0, velY = 0;
+    protected double velX = 0, velY = 0;
     protected ID id;
 
     public GameObject(int x, int y, ID id) {
