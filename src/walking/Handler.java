@@ -1,6 +1,8 @@
 package walking;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Handler {
@@ -38,11 +40,22 @@ public class Handler {
     public GameObject getGameObject(ID id) {
         for (int i = 0; i < object.size(); i++) {
             GameObject tempObject = object.get(i);
-            if(tempObject.getID() == id){
+            if (tempObject.getID() == id) {
                 return tempObject;
             }
         }
         return null;
+    }
+
+    public List getGameObjectList(ID id) {
+        ArrayList<GameObject> list = new ArrayList<>();
+        for (int i = 0; i < object.size(); i++) {
+            GameObject tempObject = object.get(i);
+            if (tempObject.getID() == id) {
+                list.add(object.get(i));
+            }
+        }
+        return list;
     }
 
     public void setUp(boolean up) {

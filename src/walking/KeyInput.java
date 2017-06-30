@@ -42,8 +42,8 @@ public class KeyInput {
         }
     }
 
-    void mousClick(MouseEvent e, double shootDirectionX, double shootDirectionY) {
+    void mousClick(MouseEvent e) {
         // NIEUW bullet object aanmaken van locatie PLAYER
-        handler.addObject(new Bullet(handler.getGameObject(ID.Player).getX(), handler.getGameObject(ID.Player).getY(), ID.Bullet, handler, (int)e.getSceneX(), (int)e.getSceneY()));
+        handler.addObject(new Bullet(handler.getGameObject(ID.Player).getX(), handler.getGameObject(ID.Player).getY(), ID.Bullet, handler, e.getSceneX(), e.getSceneY()));
     }
 }

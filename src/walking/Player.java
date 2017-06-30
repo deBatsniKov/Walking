@@ -1,14 +1,18 @@
 package walking;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import javafx.geometry.Point2D;
 
 public class Player extends GameObject {
 
     Handler handler;
+    public static double PLAYER_VELOCITY = 10.0;
 
-    public Player(int x, int y, ID id, Handler handler) {
+    public Player(double x, double y, ID id, Handler handler) {
         super(x, y, id);
         this.handler = handler;
     }
@@ -19,25 +23,25 @@ public class Player extends GameObject {
         y += velY;
 
         if (handler.isUp()) {
-            velY = -10.0;
+            velY = -PLAYER_VELOCITY;
         } else if (!handler.isDown()) {
             velY = 0.0;
         }
 
         if (handler.isDown()) {
-            velY = 10.0;
+            velY = PLAYER_VELOCITY;
         } else if (!handler.isUp()) {
             velY = 0.0;
         }
 
         if (handler.isRight()) {
-            velX = 10.0;
+            velX = PLAYER_VELOCITY;
         } else if (!handler.isLeft()) {
             velX = 0.0;
         }
 
         if (handler.isLeft()) {
-            velX = -10.0;
+            velX = -PLAYER_VELOCITY;
         } else if (!handler.isRight()) {
             velX = 0.0;
         }
@@ -50,8 +54,18 @@ public class Player extends GameObject {
     }
 
     @Override
-    public Rectangle getBounds() {
-        return null;
+    public List getBounds() {
+        return Arrays.asList(
+                new Point2D(x - 0.5 * Walking.SIZE, y - 0.5 * Walking.SIZE),
+                new Point2D(x + 0.5 * Walking.SIZE, y - 0.5 * Walking.SIZE),
+                new Point2D(x + 0.5 * Walking.SIZE, y + 0.5 * Walking.SIZE),
+                new Point2D(x - 0.5 * Walking.SIZE, y + 0.5 * Walking.SIZE)
+        );
     }
 
+    public void isCollidingBlock() {
+        if (SAT.isColliding(handler.getGameObject(ID.Block), this)) {
+            System.out.println("Collision Player - Block");
+        }
+    }
 }

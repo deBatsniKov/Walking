@@ -17,12 +17,11 @@ import javafx.stage.Stage;
 public class Walking extends Application {
 
     public final static int WIDTH = 800;
-    public final static int HEIGHT = 500;
+    public final static int HEIGHT = 600;
     public final static int SIZE = 32;
     
 
     private BufferedImage world = null;
-    private double time;
     private GraphicsContext g;
     private Handler handler;
     private Camera camera;
@@ -37,7 +36,6 @@ public class Walking extends Application {
                 update();
                 render();
             }
-
         };
         timer.start();
 
@@ -54,7 +52,7 @@ public class Walking extends Application {
             new KeyInput(handler).keyReleased(e);
         });
         scene.setOnMousePressed(e -> {
-            new KeyInput(handler).mousClick(e, e.getSceneX(), e.getSceneY());
+            new KeyInput(handler).mousClick(e);
         });
 
         // Level lader met try/catch
@@ -69,7 +67,10 @@ public class Walking extends Application {
         /////////////////////////////////////////////////////////
         //Test object, blauwe box, OBJECTEN OM TE TESTEN HIER ZETTEN
         // Player intieert uit map!
+        
+        
         /////////////////////////////////////////////////////////
+        
         //Main javaXF functies om het venster te maken
         stage.setTitle("Walking");
         stage.setScene(scene);
@@ -78,7 +79,7 @@ public class Walking extends Application {
         stage.show();
     }
 
-    //In houd geven van de scene, valt onder parent.
+    //In houd geven van de scene, valt onder Parent.
     private Parent createContent() {
         Pane root = new Pane();
 
@@ -99,6 +100,7 @@ public class Walking extends Application {
             }
         }
         handler.update();
+        
     }
 
     //Renderen van
@@ -108,14 +110,14 @@ public class Walking extends Application {
         g.fillRect(0, 0, WIDTH, HEIGHT);
         
         //Translation for camera
-        g.translate(-camera.getX(), -camera.getY());
+        //g.translate(-camera.getX(), -camera.getY());
         
         //Render all objects
         handler.render(g);
         
         //Translate back
-        g.translate(camera.getX(), camera.getY());
-
+        //g.translate(camera.getX(), camera.getY());
+        
     }
 
     private void loadLevel(BufferedImage image) {
@@ -132,12 +134,12 @@ public class Walking extends Application {
                 mapCount++;
 
                 if (red == 255) {
-                    handler.addObject(new Block(xx * 32, yy * 32, ID.Block));
+                    handler.addObject(new Block(xx * SIZE, yy * SIZE, ID.Block));
                     blockCount++;
-                    System.out.println("Block: " + blockCount + " added!");
+                    //System.out.println("Block: " + blockCount + " added!");
                 }
                 if (blue == 255) {
-                    handler.addObject(new Player(xx * 32, yy * 32, ID.Player, handler));
+                    handler.addObject(new Player(xx * SIZE, yy * SIZE, ID.Player, handler));
                     System.out.println("Player Added");
                 }
             }

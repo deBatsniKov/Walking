@@ -15,16 +15,16 @@ public class Camera {
         x += ((object.getX() - x) - Walking.WIDTH / 2) * 0.05f;
         y +=((object.getY() - y) - Walking.HEIGHT / 2) * 0.05f; 
         
-        if (x > (66*Walking.SIZE - Walking.WIDTH - (0.5 * 32))) {
-            x = (66*Walking.SIZE - Walking.WIDTH - (32 / 2));
+        if (x > (66*Walking.SIZE - Walking.WIDTH - (Walking.SIZE / 2))) {
+            x = (66*Walking.SIZE - Walking.WIDTH - (Walking.SIZE / 2));
         }
-        if (x < (0 + 0.5 * Walking.SIZE)) {
+        if (x < (0 + (Walking.SIZE / 2))) {
             x = 0 + (Walking.SIZE / 2);
         }
-        if (y < (0 + (0.5 * Walking.SIZE))) {
+        if (y < (0 + (Walking.SIZE / 2))) {
             y = 0 + (Walking.SIZE / 2);
         }
-        if (y > (40 * Walking.SIZE - Walking.HEIGHT - (0.5 * Walking.SIZE))) {
+        if (y > (40 * Walking.SIZE - Walking.HEIGHT - (Walking.SIZE / 2))) {
             y = (40 * Walking.SIZE - Walking.HEIGHT - (Walking.SIZE / 2));
         }
         
