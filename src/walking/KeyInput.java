@@ -2,7 +2,6 @@ package walking;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 
 public class KeyInput {
 
@@ -42,8 +41,8 @@ public class KeyInput {
         }
     }
 
-    void mousClick(MouseEvent e) {
+    /*void mousClick(MouseEvent e) {
         // NIEUW bullet object aanmaken van locatie PLAYER
         handler.addObject(new Bullet(handler.getGameObject(ID.Player).getX(), handler.getGameObject(ID.Player).getY(), ID.Bullet, handler, e.getSceneX(), e.getSceneY()));
-    }
+    }*/
 }

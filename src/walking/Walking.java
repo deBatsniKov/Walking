@@ -52,7 +52,9 @@ public class Walking extends Application {
             new KeyInput(handler).keyReleased(e);
         });
         scene.setOnMousePressed(e -> {
-            new KeyInput(handler).mousClick(e);
+            handler.addObject(new Bullet(handler.getGameObject(ID.Player).getX(), handler.getGameObject(ID.Player).getY(), ID.Bullet, handler, e.getSceneX(), e.getSceneY()));
+
+            //new KeyInput(handler).mousClick(e);
         });
 
         // Level lader met try/catch
@@ -115,8 +117,14 @@ public class Walking extends Application {
         //Render all objects
         handler.render(g);
         
+        //g.setFill(Color.RED);
+        //g.fillText("Before Translate: ", 720, 60);
+        
         //Translate back
         //g.translate(camera.getX(), camera.getY());
+        
+        g.setFill(Color.RED);
+        g.fillText("Player Location: X: " + handler.getGameObject(ID.Player).getX() + " Y: " + handler.getGameObject(ID.Player).getY(), 600, 30);
         
     }
 

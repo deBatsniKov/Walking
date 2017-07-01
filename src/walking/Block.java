@@ -1,10 +1,8 @@
 package walking;
 
-import java.util.Arrays;
-import java.util.List;
-import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 public class Block extends GameObject {
 
@@ -23,13 +21,8 @@ public class Block extends GameObject {
     }
     
     @Override
-    public List getBounds() {
-    return Arrays.asList(
-                new Point2D(x,  y),
-                new Point2D(x + Walking.SIZE,  y),
-                new Point2D(x + Walking.SIZE,  y + Walking.SIZE),
-                new Point2D(x,  y + Walking.SIZE)
-        );
+    public Rectangle getBounds() {
+        return new Rectangle(x, y, Walking.SIZE, Walking.SIZE);
     }
 
 }

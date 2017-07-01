@@ -1,16 +1,13 @@
 package walking;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.geometry.Point2D;
+import javafx.scene.shape.Rectangle;
 
 public class Player extends GameObject {
 
     Handler handler;
-    public static double PLAYER_VELOCITY = 10.0;
+    public static double PLAYER_VELOCITY = 7.0;
 
     public Player(double x, double y, ID id, Handler handler) {
         super(x, y, id);
@@ -19,6 +16,8 @@ public class Player extends GameObject {
 
     @Override
     public void update() {
+        collisionBlock();
+
         x += velX;
         y += velY;
 
@@ -54,18 +53,31 @@ public class Player extends GameObject {
     }
 
     @Override
-    public List getBounds() {
-        return Arrays.asList(
-                new Point2D(x - 0.5 * Walking.SIZE, y - 0.5 * Walking.SIZE),
-                new Point2D(x + 0.5 * Walking.SIZE, y - 0.5 * Walking.SIZE),
-                new Point2D(x + 0.5 * Walking.SIZE, y + 0.5 * Walking.SIZE),
-                new Point2D(x - 0.5 * Walking.SIZE, y + 0.5 * Walking.SIZE)
-        );
+    public Rectangle getBounds() {
+        return new Rectangle(x - 0.5 * Walking.SIZE, y - 0.5 * Walking.SIZE, Walking.SIZE, Walking.SIZE);
     }
 
-    public void isCollidingBlock() {
-        if (SAT.isColliding(handler.getGameObject(ID.Block), this)) {
-            System.out.println("Collision Player - Block");
+    private void collisionBlock() {
+        for (int i = 0; i < handler.object.size(); i++) {
+            GameObject tempObject = handler.object.get(i);
+            if (tempObject.getID() == ID.Block) {
+                if (!place_free((x + velX), y, getBounds(), tempObject.getBounds())) {
+                    velX = 0;
+                }
+                if (!place_free(x, (y + velY), getBounds(), tempObject.getBounds())) {
+                    velY = 0;
+                }
+            }
         }
+    }
+        
+
+    public boolean place_free(double x, double y, Rectangle thisRect, Rectangle otherRect) {
+        thisRect.setX(x);
+        thisRect.setY(y);
+        if (thisRect.intersects(otherRect.getBoundsInParent())) {
+            return false;
+        }
+        return true;
     }
 }

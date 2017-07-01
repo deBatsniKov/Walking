@@ -1,7 +1,7 @@
 package walking;
 
-import java.util.List;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.shape.Rectangle;
 
 public abstract class GameObject {
 
@@ -17,7 +17,7 @@ public abstract class GameObject {
 
     public abstract void update();
     public abstract void render(GraphicsContext g);
-    public abstract List getBounds();
+    public abstract Rectangle getBounds();
 
     public ID getID(){
         return id;

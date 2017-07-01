@@ -1,16 +1,15 @@
 package walking;
 
-import java.util.Arrays;
-import java.util.List;
-import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.transform.Rotate;
 
 public class Bullet extends GameObject {
 
     final static int HEIGHT = 5;
     final static int WIDTH = 10;
-    final static int VELOCITY = 3;
+    final static double BULLET_VELOCITY = 5;
 
     Handler handler;
     double directionX, directionY;
@@ -31,11 +30,31 @@ public class Bullet extends GameObject {
         this.angle = Math.atan2(directionY - y, directionX - x);
         this.dx = Math.cos(angle);
         this.dy = Math.sin(angle);
-        this.velX = (VELOCITY * dx);
-        this.velY = (VELOCITY * dy);
+        this.velX = (BULLET_VELOCITY * dx);
+        this.velY = (BULLET_VELOCITY * dy);
     }
 
     @Override
+    public void update() {
+        // Give the speed
+        x += velX;
+        y += velY;
+    }
+
+    @Override
+    public void render(GraphicsContext g) {
+
+        g.save();
+        Rotate r = new Rotate(Math.toDegrees(angle), x , y);
+        g.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
+        g.setFill(Color.RED);
+        g.fillRect(x - 5, y - 2.5, 10, 5);
+        g.strokeRect(x - 5, y - 2.5, 10, 5);
+        g.restore();
+    }
+    
+    // MANUAL CALCULATIONS
+    /*
     public void update() {
         // Give the speed
         x += velX;
@@ -53,31 +72,20 @@ public class Bullet extends GameObject {
 
         pointX[3] = x - ((HEIGHT / 2) * dy) - ((WIDTH / 2) * dx);
         pointY[3] = y - ((WIDTH / 2) * dy) + ((HEIGHT / 2) * dx);
-
-        isCollidingBullet();
+ 
     }
-
+    
     @Override
     public void render(GraphicsContext g) {
         g.setFill(Color.RED);
         g.fillPolygon(pointX, pointY, 4);
         g.strokePolygon(pointX, pointY, 4);
     }
+    */
 
     @Override
-    public List getBounds() {
-        return Arrays.asList(
-                new Point2D(pointX[0], pointY[0]),
-                new Point2D(pointX[1], pointY[1]),
-                new Point2D(pointX[2], pointY[2]),
-                new Point2D(pointX[3], pointY[3])
-        );
-    }
-
-    public void isCollidingBullet() {
-        if (SAT.isColliding(handler.getGameObject(ID.Player), this)) {
-            System.out.println("Collision Bullet - Block");
-        }
+    public Rectangle getBounds() {
+        return null;
     }
 
 }
